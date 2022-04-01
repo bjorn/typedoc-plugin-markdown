@@ -1,8 +1,10 @@
+{{#unless inheritedFrom}}
+
 {{#unless hasOwnDocument}}
 
 {{#if name}}
 
-### {{#ifNamedAnchors}}<a id="{{anchor}}" name="{{this.anchor}}"></a> {{/ifNamedAnchors}}{{ escape name }}
+{{#ifNamedAnchors}}<a id="{{anchor}}" name="{{this.anchor}}"></a>{{/ifNamedAnchors}}
 
 {{/if}}
 
@@ -38,8 +40,4 @@
 
 {{/if}}
 
-{{#unless @last}}
-{{#unless hasOwnDocument}}
-___
-{{/unless}}
 {{/unless}}

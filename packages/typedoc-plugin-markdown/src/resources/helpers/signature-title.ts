@@ -4,17 +4,12 @@ import {
   ReflectionKind,
   SignatureReflection,
 } from 'typedoc';
-import { memberSymbol } from '../../utils';
 
 export default function () {
   Handlebars.registerHelper(
     'signatureTitle',
     function (this: SignatureReflection, accessor?: string, standalone = true) {
       const md: string[] = [];
-
-      if (standalone) {
-        md.push(`${memberSymbol(this)} `);
-      }
 
       if (this.parent && this.parent.flags?.length > 0) {
         md.push(this.parent.flags.map((flag) => `\`${flag}\``).join(' ') + ' ');
@@ -45,7 +40,7 @@ export default function () {
 
 const getParameters = (
   parameters: ParameterReflection[] = [],
-  backticks = true,
+  backticks = false,
 ) => {
   return parameters
     .map((param) => {
@@ -55,7 +50,7 @@ const getParameters = (
       }
       const paramItem = `${param.name}${
         param.flags.isOptional || param.defaultValue ? '?' : ''
-      }`;
+      }: ${Handlebars.helpers.type.call(param.type)}`;
       paramsmd.push(backticks ? `\`${paramItem}\`` : paramItem);
       return paramsmd.join('');
     })

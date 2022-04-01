@@ -8,7 +8,6 @@ import {
 } from 'typedoc';
 import {
   escapeChars,
-  memberSymbol,
   stripComments,
   stripLineBreaks,
 } from '../../utils';
@@ -17,7 +16,7 @@ export default function () {
   Handlebars.registerHelper(
     'declarationTitle',
     function (this: ParameterReflection | DeclarationReflection) {
-      const md = [memberSymbol(this)];
+      const md: string[] = [];
 
       function getType(
         reflection: ParameterReflection | DeclarationReflection,
